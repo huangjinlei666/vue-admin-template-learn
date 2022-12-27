@@ -8,9 +8,10 @@ import router from './router'
 import store from './store'
 import '@/icons'
 import '@/styles/index.scss'
+import '@/permission.js'
 Vue.config.productionTip = false
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }

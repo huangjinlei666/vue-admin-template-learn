@@ -108,7 +108,7 @@ export default {
         this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$$refs.password.focus();
+        this.$refs.password.focus();
       });
     },
     handleLogin() {

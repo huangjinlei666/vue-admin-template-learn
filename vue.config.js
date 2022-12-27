@@ -1,3 +1,4 @@
+'use strict'
 const { defineConfig } = require('@vue/cli-service')
 const path=require('path')
 const resolve=dir=>path.join(__dirname,dir)
@@ -11,7 +12,10 @@ module.exports = defineConfig({
      resolve:{
       alias:{
         '@':resolve('src'),
-      }
+      },
+      fallback: {
+        path: require.resolve("path-browserify"),
+      },
      }
   },
   chainWebpack(config){
