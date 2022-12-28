@@ -1,6 +1,8 @@
 module.exports = {
 
   title: 'Vue Admin Template',
+  //是否展示设置
+  showSettings: true,
 
   /**
    * @type {boolean} true | false
