@@ -3,12 +3,17 @@
     <transition name="fade-transform" mode="out-in">
       <router-view :key="key" />
     </transition>
+    <back-to-top></back-to-top>
   </section>
 </template>
 
 <script>
+import BackToTop from '@/components/BackToTop'
 export default {
   name: 'AppMain',
+  components:{
+     BackToTop
+  },
   computed: {
     key() {
       return this.$route.path

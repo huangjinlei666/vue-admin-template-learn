@@ -3,14 +3,14 @@ import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 
-// create an axios instance
+// 创建axios实例
 const service = axios.create({
   baseURL: process.env.VUE_APP_BASE_API, // url = base url + request url
   // withCredentials: true, // send cookies when cross-domain requests
-  timeout: 5000 // request timeout
+  timeout: 5000 // 超时毫秒
 })
 
-// request interceptor
+// 请求拦截器
 service.interceptors.request.use(
   config => {
     // do something before request is sent
@@ -25,12 +25,12 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
+    console.log('request error:',error) // for debug
     return Promise.reject(error)
   }
 )
 
-// response interceptor
+// 响应拦截器
 service.interceptors.response.use(
   /**
    * If you want to get http information such as headers or status
@@ -56,7 +56,7 @@ service.interceptors.response.use(
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
         // to re-login
-        MessageBox.confirm('You have been logged out, you can cancel to stay on this page, or log in again', 'Confirm logout', {
+        MessageBox.confirm('请重新登录', 'Confirm logout', {
           confirmButtonText: 'Re-Login',
           cancelButtonText: 'Cancel',
           type: 'warning'
@@ -72,7 +72,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log('response error:',error) // for debug
     Message({
       message: error.message,
       type: 'error',

@@ -136,6 +136,7 @@ export default {
   pointer-events: auto;
   cursor: pointer;
   color: #fff;
+  background-color: rgb(24, 144, 255);
   line-height: 48px;
   i {
     font-size: 24px;

@@ -15,7 +15,7 @@ const name = defaultSettings.title || 'vue Admin Template' // page title
 // port = 9528 npm run dev OR npm run dev --port = 9528
 const port = process.env.port || process.env.npm_config_port || 9528 // dev port
 
-// All configuration item explanations can be find in https://cli.vuejs.org/config/
+//具体配置参考https://cli.vuejs.org/config/
 module.exports = {
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
@@ -24,12 +24,12 @@ module.exports = {
    * In most cases please use '/' !!!
    * Detail: https://cli.vuejs.org/config/#publicpath
    */
-  publicPath: '/',
+  publicPath: '/',//Vue CLI 3.3开始baseUrl弃用
   outputDir: 'dist',
   assetsDir: 'static',
   // lintOnSave: process.env.NODE_ENV === 'development',
   lintOnSave:false,
-  productionSourceMap: false,
+  productionSourceMap: false,//不需要生产环境的 source map，加速生产环境构建。
   devServer: {
     port: port,
     open: true,
@@ -37,7 +37,17 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    before: require('./mock/mock-server.js'),
+    proxy:{
+      '/api':{
+        target:'接口地址',
+        ws:true,
+        changeOrigin:true,
+        pathRewrite:{
+          '^/api':'',
+        },
+      }
+    }
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
@@ -45,12 +55,12 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        '@': resolve('src')
+        '@': resolve('src')//@替换路径的src
       }
     }
   },
   chainWebpack(config) {
-    // it can improve the speed of the first screen, it is recommended to turn on preload
+    // 提高第一个屏幕的速度，建议打开预加载
     config.plugin('preload').tap(() => [
       {
         rel: 'preload',
@@ -61,7 +71,7 @@ module.exports = {
       }
     ])
 
-    // when there are many pages, it will cause too many meaningless requests
+    // 当页面很多时，会导致太多无意义的请求
     config.plugins.delete('prefetch')
 
     // set svg-sprite-loader
